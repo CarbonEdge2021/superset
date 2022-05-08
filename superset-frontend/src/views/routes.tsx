@@ -69,6 +69,12 @@ const DatabaseList = lazy(
       /* webpackChunkName: "DatabaseList" */ 'src/views/CRUD/data/database/DatabaseList'
     ),
 );
+const DataCommons = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "DatabaseList" */ 'src/views/CRUD/data/datacommons/DataCommons'
+      ),
+);
 const DatasetList = lazy(
   () =>
     import(
@@ -125,6 +131,10 @@ export const routes: Routes = [
   {
     path: '/databaseview/list/',
     Component: DatabaseList,
+  },
+  {
+    path: '/datacommons',
+    Component: DataCommons,
   },
   {
     path: '/savedqueryview/list/',

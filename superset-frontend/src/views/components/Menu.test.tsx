@@ -130,7 +130,7 @@ const mockedProps = {
             label: 'Databases',
             url: '/databaseview/list/',
             index: 2,
-          },
+          }
         ],
       },
       {
@@ -164,14 +164,19 @@ const mockedProps = {
             label: 'Datasets',
             url: '/tablemodelview/list/',
           },
-          '-',
+          {
+            name: 'DataCommons',
+            icon: 'fa-database',
+            label: 'Data Commons',
+            url: '/datacommons',
+          },
         ],
       },
     ],
     brand: {
       path: '/superset/profile/admin/',
-      icon: '/static/assets/images/superset-logo-horiz.png',
-      alt: 'Superset',
+      icon: '/static/assets/images/NikaLogo.png',
+      alt: 'Nika',
       width: '126',
       tooltip: '',
       text: '',
