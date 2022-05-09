@@ -290,10 +290,10 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
       <Collapse activeKey={activeState} onChange={handleCollapse} ghost bigger>
         <Collapse.Panel header={t('Recents')} key="1">
           {activityData &&
-          (activityData.Viewed ||
-            activityData.Examples ||
-            activityData.Created) &&
-          activeChild !== 'Loading' ? (
+            (activityData.Viewed ||
+              activityData.Examples ||
+              activityData.Created) &&
+            activeChild !== 'Loading' ? (
             <ActivityTable
               user={{ userId: user.userId! }} // user is definitely not a guest user on this page
               activeChild={activeChild}

@@ -63,6 +63,12 @@ const DashboardRoute = lazy(
       /* webpackChunkName: "DashboardRoute" */ 'src/dashboard/containers/DashboardRoute'
     ),
 );
+const DatasourceList = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "DatasourceList" */ 'src/views/CRUD/data/datasource/DatasourceList'
+    ),
+);
 const DatabaseList = lazy(
   () =>
     import(
@@ -117,6 +123,10 @@ export const routes: Routes = [
   {
     path: '/chart/list/',
     Component: ChartList,
+  },
+  {
+    path: '/datasource/list/',
+    Component: DatasourceList,
   },
   {
     path: '/tablemodelview/list/',

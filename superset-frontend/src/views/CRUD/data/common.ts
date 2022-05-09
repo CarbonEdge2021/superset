@@ -22,6 +22,12 @@ export const commonMenuData = {
   name: t('Data'),
   tabs: [
     {
+      name: 'Data source',
+      label: t('Data source'),
+      url: '/datasource/list/',
+      usesRouter: true,
+    },
+    {
       name: 'Databases',
       label: t('Databases'),
       url: '/databaseview/list/',
