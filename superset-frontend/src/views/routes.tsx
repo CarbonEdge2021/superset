@@ -72,8 +72,8 @@ const DatabaseList = lazy(
 const DataCommons = lazy(
   () =>
     import(
-      /* webpackChunkName: "DatabaseList" */ 'src/views/CRUD/data/datacommons/DataCommons'
-      ),
+      /* webpackChunkName: "DataCommons" */ 'src/views/CRUD/data/datacommons/DataCommons'
+    ),
 );
 const DatasetList = lazy(
   () =>

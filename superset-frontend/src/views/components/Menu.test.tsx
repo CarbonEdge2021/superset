@@ -130,7 +130,7 @@ const mockedProps = {
             label: 'Databases',
             url: '/databaseview/list/',
             index: 2,
-          }
+          },
         ],
       },
       {

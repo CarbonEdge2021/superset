@@ -332,9 +332,27 @@ export function Menu({
 
 // transform the menu data to reorganize components
 export default function MenuWrapper({ data, ...rest }: MenuProps) {
+  // data.menu[3].push({
+  //   name: 'DataCommons',
+  //   icon: 'fa-database',
+  //   label: 'Data Commons',
+  //   url: '/datacommons',
+  // });
+  // data.menu.forEach(function (arrayItem, index) {
+  //   if (arrayItem.name === 'Data') {
+  //     data.menu[index].push({
+  //       name: 'DataCommons',
+  //       icon: 'fa-database',
+  //       label: 'Data Commons',
+  //       url: '/datacommons',
+  //     });
+  //   }
+  // });
+  console.log('data', data.menu);
   const newMenuData = {
     ...data,
   };
+  console.log('newMenuData', newMenuData);
   // Menu items that should go into settings dropdown
   const settingsMenus = {
     Security: true,
@@ -364,6 +382,15 @@ export default function MenuWrapper({ data, ...rest }: MenuProps) {
         }
       });
 
+      // add data commons to the dropdown
+      if (item.name === 'Data') {
+        children.push({
+          name: 'DataCommons',
+          icon: 'fa-database',
+          label: 'Data Commons',
+          url: '/datacommons',
+        });
+      }
       newItem.childs = children;
     }
 
