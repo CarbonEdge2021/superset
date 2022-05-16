@@ -23,7 +23,7 @@ import InfoTooltip from 'src/components/InfoTooltip';
 import FormLabel from 'src/components/Form/FormLabel';
 import { DeleteFilled } from '@ant-design/icons';
 import { FieldPropTypes } from '.';
-import { infoTooltip, labelMarginBotton, CredentialInfoForm } from '../styles';
+import { infoTooltip, labelMarginBotton, CredentialInfoForm } from '../../../datasource/DatasourceModal/styles';
 
 enum CredentialInfoOptions {
   jsonUpload,
@@ -109,8 +109,8 @@ export const EncryptedField = ({
         </>
       )}
       {uploadOption === CredentialInfoOptions.copyPaste ||
-      isEditMode ||
-      editNewDb ? (
+        isEditMode ||
+        editNewDb ? (
         <div className="input-container">
           <FormLabel required>{t('Service Account')}</FormLabel>
           <textarea

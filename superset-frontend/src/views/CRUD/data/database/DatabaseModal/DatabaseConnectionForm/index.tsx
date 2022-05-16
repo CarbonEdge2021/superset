@@ -32,7 +32,7 @@ import {
 import { validatedInputField } from './ValidatedInputField';
 import { EncryptedField } from './EncryptedField';
 import { TableCatalog } from './TableCatalog';
-import { formScrollableStyles, validatedFormStyles } from '../styles';
+import { formScrollableStyles, validatedFormStyles } from '../../../datasource/DatasourceModal/styles';
 import { DatabaseForm, DatabaseObject } from '../../types';
 
 export const FormFieldOrder = [

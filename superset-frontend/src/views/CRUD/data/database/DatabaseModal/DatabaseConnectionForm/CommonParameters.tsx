@@ -22,7 +22,7 @@ import { AntdSwitch } from 'src/components';
 import InfoTooltip from 'src/components/InfoTooltip';
 import ValidatedInput from 'src/components/Form/LabeledErrorBoundInput';
 import { FieldPropTypes } from '.';
-import { toggleStyle, infoTooltip } from '../styles';
+import { toggleStyle, infoTooltip } from '../../../datasource/DatasourceModal/styles';
 
 export const hostField = ({
   required,

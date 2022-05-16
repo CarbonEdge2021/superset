@@ -25,7 +25,7 @@ import {
   EditHeaderSubtitle,
   StyledFormHeader,
   StyledStickyHeader,
-} from './styles';
+} from '../../datasource/DatasourceModal/styles';
 import { DatabaseForm, DatabaseObject } from '../types';
 
 const supersetTextDocs = getDatabaseDocumentationLinks();

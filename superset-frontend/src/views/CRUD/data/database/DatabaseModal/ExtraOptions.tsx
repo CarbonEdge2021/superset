@@ -28,7 +28,7 @@ import {
   StyledExpandableForm,
   antdCollapseStyles,
   no_margin_bottom,
-} from './styles';
+} from '../../datasource/DatasourceModal/styles';
 import { DatabaseObject } from '../types';
 
 const ExtraOptions = ({
@@ -160,8 +160,8 @@ const ExtraOptions = ({
                 <InfoTooltip
                   tooltip={t(
                     'Allow SQL Lab to fetch a list of all tables and all views across all database ' +
-                      'schemas. For large data warehouse with thousands of tables, this can be ' +
-                      'expensive and put strain on the system.',
+                    'schemas. For large data warehouse with thousands of tables, this can be ' +
+                    'expensive and put strain on the system.',
                   )}
                 />
               </div>
@@ -210,8 +210,8 @@ const ExtraOptions = ({
                 <InfoTooltip
                   tooltip={t(
                     'Disable data preview when fetching table metadata in SQL Lab. ' +
-                      ' Useful to avoid browser performance issues when using ' +
-                      ' databases with very wide tables.',
+                    ' Useful to avoid browser performance issues when using ' +
+                    ' databases with very wide tables.',
                   )}
                 />
               </div>
@@ -244,8 +244,8 @@ const ExtraOptions = ({
           <div className="helper">
             {t(
               'Duration (in seconds) of the caching timeout for charts of this database.' +
-                ' A timeout of 0 indicates that the cache never expires.' +
-                ' Note this defaults to the global timeout if undefined.',
+              ' A timeout of 0 indicates that the cache never expires.' +
+              ' Note this defaults to the global timeout if undefined.',
             )}
           </div>
         </StyledInputContainer>
@@ -267,7 +267,7 @@ const ExtraOptions = ({
           <div className="helper">
             {t(
               'Duration (in seconds) of the metadata caching timeout for schemas of ' +
-                'this database. If left unset, the cache never expires.',
+              'this database. If left unset, the cache never expires.',
             )}
           </div>
         </StyledInputContainer>
@@ -289,7 +289,7 @@ const ExtraOptions = ({
           <div className="helper">
             {t(
               'Duration (in seconds) of the metadata caching timeout for tables of ' +
-                'this database. If left unset, the cache never expires. ',
+              'this database. If left unset, the cache never expires. ',
             )}
           </div>
         </StyledInputContainer>
@@ -305,9 +305,9 @@ const ExtraOptions = ({
             <InfoTooltip
               tooltip={t(
                 'Operate the database in asynchronous mode, meaning that the queries ' +
-                  'are executed on remote workers as opposed to on the web server itself. ' +
-                  'This assumes that you have a Celery worker setup as well as a results ' +
-                  'backend. Refer to the installation docs for more information.',
+                'are executed on remote workers as opposed to on the web server itself. ' +
+                'This assumes that you have a Celery worker setup as well as a results ' +
+                'backend. Refer to the installation docs for more information.',
               )}
             />
           </div>
@@ -324,8 +324,8 @@ const ExtraOptions = ({
             <InfoTooltip
               tooltip={t(
                 'Terminate running queries when browser window closed or navigated ' +
-                  'to another page. Available for Presto, Hive, MySQL, Postgres and ' +
-                  'Snowflake databases.',
+                'to another page. Available for Presto, Hive, MySQL, Postgres and ' +
+                'Snowflake databases.',
               )}
             />
           </div>
@@ -358,9 +358,9 @@ const ExtraOptions = ({
             <div>
               {t(
                 'JSON string containing additional connection configuration. ' +
-                  'This is used to provide connection information for systems ' +
-                  'like Hive, Presto and BigQuery which do not conform to the ' +
-                  'username:password syntax normally used by SQLAlchemy.',
+                'This is used to provide connection information for systems ' +
+                'like Hive, Presto and BigQuery which do not conform to the ' +
+                'username:password syntax normally used by SQLAlchemy.',
               )}
             </div>
           </div>
@@ -378,7 +378,7 @@ const ExtraOptions = ({
           <div className="helper">
             {t(
               'Optional CA_BUNDLE contents to validate HTTPS requests. Only ' +
-                'available on certain database engines.',
+              'available on certain database engines.',
             )}
           </div>
         </StyledInputContainer>
@@ -417,10 +417,10 @@ const ExtraOptions = ({
             <InfoTooltip
               tooltip={t(
                 'If Presto or Trino, all the queries in SQL Lab are going to be executed as the ' +
-                  'currently logged on user who must have permission to run them. If Hive ' +
-                  'and hive.server2.enable.doAs is enabled, will run the queries as ' +
-                  'service account, but impersonate the currently logged on user via ' +
-                  'hive.server2.proxy.user property.',
+                'currently logged on user who must have permission to run them. If Hive ' +
+                'and hive.server2.enable.doAs is enabled, will run the queries as ' +
+                'service account, but impersonate the currently logged on user via ' +
+                'hive.server2.proxy.user property.',
               )}
             />
           </div>
@@ -511,7 +511,7 @@ const ExtraOptions = ({
           <div className="helper">
             {t(
               'Specify the database version. This should be used with ' +
-                'Presto in order to enable query cost estimation.',
+              'Presto in order to enable query cost estimation.',
             )}
           </div>
         </StyledInputContainer>

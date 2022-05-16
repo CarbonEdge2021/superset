@@ -135,45 +135,45 @@ interface DBReducerPayloadType {
 
 type DBReducerActionType =
   | {
-      type:
-        | ActionType.extraEditorChange
-        | ActionType.extraInputChange
-        | ActionType.textChange
-        | ActionType.queryChange
-        | ActionType.inputChange
-        | ActionType.editorChange
-        | ActionType.parametersChange;
-      payload: DBReducerPayloadType;
-    }
+    type:
+    | ActionType.extraEditorChange
+    | ActionType.extraInputChange
+    | ActionType.textChange
+    | ActionType.queryChange
+    | ActionType.inputChange
+    | ActionType.editorChange
+    | ActionType.parametersChange;
+    payload: DBReducerPayloadType;
+  }
   | {
-      type: ActionType.fetched;
-      payload: Partial<DatabaseObject>;
-    }
+    type: ActionType.fetched;
+    payload: Partial<DatabaseObject>;
+  }
   | {
-      type: ActionType.dbSelected;
-      payload: {
-        database_name?: string;
-        engine?: string;
-        configuration_method: CONFIGURATION_METHOD;
-      };
-    }
-  | {
-      type: ActionType.reset | ActionType.addTableCatalogSheet;
-    }
-  | {
-      type: ActionType.removeTableCatalogSheet;
-      payload: {
-        indexToDelete: number;
-      };
-    }
-  | {
-      type: ActionType.configMethodChange;
-      payload: {
-        database_name?: string;
-        engine?: string;
-        configuration_method: CONFIGURATION_METHOD;
-      };
+    type: ActionType.dbSelected;
+    payload: {
+      database_name?: string;
+      engine?: string;
+      configuration_method: CONFIGURATION_METHOD;
     };
+  }
+  | {
+    type: ActionType.reset | ActionType.addTableCatalogSheet;
+  }
+  | {
+    type: ActionType.removeTableCatalogSheet;
+    payload: {
+      indexToDelete: number;
+    };
+  }
+  | {
+    type: ActionType.configMethodChange;
+    payload: {
+      database_name?: string;
+      engine?: string;
+      configuration_method: CONFIGURATION_METHOD;
+    };
+  };
 
 function dbReducer(
   state: Partial<DatabaseObject> | null,
@@ -336,7 +336,7 @@ function dbReducer(
       if (
         action.payload.encrypted_extra &&
         action.payload.configuration_method ===
-          CONFIGURATION_METHOD.DYNAMIC_FORM
+        CONFIGURATION_METHOD.DYNAMIC_FORM
       ) {
         const engineParamsCatalog = Object.entries(
           extra_json?.engine_params?.catalog || {},
@@ -875,8 +875,8 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
         tooltip={
           db?.is_managed_externally
             ? t(
-                "This database is managed externally, and can't be edited in Superset",
-              )
+              "This database is managed externally, and can't be edited in Superset",
+            )
             : ''
         }
       >
@@ -991,7 +991,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setPasswords({ ...passwords, [database]: event.target.value })
           }
-          validationMethods={{ onBlur: () => {} }}
+          validationMethods={{ onBlur: () => { } }}
           errorMessage={validationErrors?.password_needed}
           label={t('%s PASSWORD', database.slice(10))}
           css={formScrollableStyles}
@@ -1026,7 +1026,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
           id="confirm_overwrite"
           name="confirm_overwrite"
           required
-          validationMethods={{ onBlur: () => {} }}
+          validationMethods={{ onBlur: () => { } }}
           errorMessage={validationErrors?.confirm_overwrite}
           label={t(`TYPE "OVERWRITE" TO CONFIRM`)}
           onChange={confirmOverwrite}
@@ -1442,7 +1442,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
                     id="databaseFile"
                     data-test="database-file-input"
                     accept=".yaml,.json,.yml,.zip"
-                    customRequest={() => {}}
+                    customRequest={() => { }}
                     onChange={onDbImport}
                     onRemove={removeFile}
                   >
