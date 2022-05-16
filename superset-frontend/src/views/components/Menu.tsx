@@ -364,6 +364,15 @@ export default function MenuWrapper({ data, ...rest }: MenuProps) {
         }
       });
 
+      // add data commons to the dropdown
+      if (item.name === 'Data') {
+        children.push({
+          name: 'DataCommons',
+          icon: 'fa-database',
+          label: 'Data Commons',
+          url: '/datacommons',
+        });
+      }
       newItem.childs = children;
     }
 

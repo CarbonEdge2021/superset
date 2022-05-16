@@ -110,3 +110,10 @@ messages.mo
 docker/requirements-local.txt
 
 cache/
+
+
+a/
+python3/
+setup/
+virtualenv/
+/#/
