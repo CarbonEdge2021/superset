@@ -1,7 +1,6 @@
 export type DatasourceObject = {
-    id: string;
-    catalog_name: string;
+    catalog_id: string;
     connector_type: string;
-    //detail
+    data: any
 };
 

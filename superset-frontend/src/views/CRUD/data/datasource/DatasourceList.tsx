@@ -1,6 +1,5 @@
 import React, {
-  FunctionComponent, useMemo, useState,
-
+  FunctionComponent, useEffect, useMemo, useState,
 } from 'react';
 import { t, styled } from '@superset-ui/core';
 import withToasts from 'src/components/MessageToasts/withToasts';
@@ -9,13 +8,12 @@ import SubMenu, {
 } from 'src/views/components/SubMenu';
 import ListView from 'src/components/ListView';
 import { commonMenuData } from 'src/views/CRUD/data/common';
-import { Tooltip } from 'antd';
+import { Tooltip, notification } from 'antd';
 import Icons from 'src/components/Icons';
 import { DatasourceObject } from './types';
-import { useListViewResource } from '../../hooks';
-import { addDangerToast } from 'src/components/MessageToasts/actions';
 import DeleteModal from 'src/components/DeleteModal';
 import DatasourceModal from './DatasourceModal';
+import { DEFAULT_BE_URL } from 'packages/superset-ui-core/src/connection/constants';
 
 const PAGE_SIZE = 25;
 
@@ -35,44 +33,56 @@ const Actions = styled.div`
 const DatasourceList: FunctionComponent<DatasourceListProps> = ({
 
 }) => {
-  // const {
-  //   state: {
-  //     loading,
-  //     resourceCount: datasourceCount,
-  //     resourceCollection: datasource,
-  //   },
-  //   hasPerm,
-  //   fetchData,
-  //   refreshData,
-  // } = useListViewResource<DatasourceObject>(
-  //   'datasource',
-  //   t('datasource'),
-  //   addDangerToast,
-  // );
   const datasourceCount = 0;
-  const datasources: DatasourceObject[] = [];
+  const [datasources, setDatasources] = useState<DatasourceObject[]>([]);
+
+  useEffect(() => {
+    fetch(DEFAULT_BE_URL + "/api/v1/connector/list_connections", {
+      method: "GET"
+    }).then((res) => res.json())
+      .then(res => {
+        if (res.ret == 0) {
+          setDatasources(res.data);
+        }
+      })
+  }, [])
+
   const fetchData = () => { }
   const loading = false;
 
-  function handleDatasourceDelete({ id, catalog_name: ctName }: DatasourceObject) {
-    // SupersetClient.delete({
-    //   endpoint: `/api/v1/database/${id}`,
-    // }).then(
-    //   () => {
-    //     refreshData();
-    //     addSuccessToast(t('Deleted: %s', ctName));
-
-    //     // Close delete modal
-    //     //  setDatabaseCurrentlyDeleting(null);
-    //   },
-    //   createErrorHandler(errMsg =>
-    //     addDangerToast(t('There was an issue deleting %s: %s', ctName, errMsg)),
-    //   ),
-    // );
+  function handleDatasourceDelete({ catalog_id }: DatasourceObject) {
+    fetch(DEFAULT_BE_URL + "/api/v1/connector/delete_connection", {
+      method: "POST",
+      body: JSON.stringify({ catalog_id })
+    }).then((res) => res.json())
+      .then(res => {
+        notification.open({
+          message: 'Test Connection',
+          description: res.msg,
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+      })
   }
+
+
+
   const [currentDatasource, setCurrentDatasource] = useState<DatasourceObject | null>(
     null,
   );
+
+  // const fakeData = [{
+  //   catalog_id: "catalog_test",
+  //   connector_type: "mysql",
+  //   data: {
+  //     connector_name: "mysql",
+  //     connection_url: "url",
+  //     connection_user: "user",
+  //     connection_password: "password"
+  //   }
+  // }]
+
   const [datasourceModalOpen, setDatasourceModalOpen] = useState<boolean>(false);
   const [datasourceCurrentlyDeleting, setDatasourceCurrentlyDeleting] =
     useState<DatasourceObject | null>(null);
@@ -105,30 +115,15 @@ const DatasourceList: FunctionComponent<DatasourceListProps> = ({
     },
   ];
 
-  const openDatasourceDeleteModal = (datasource: DatasourceObject) => { };
-  // SupersetClient.get({
-  //   endpoint: `/api/v1/database/${datasource.catalog_name}/related_objects/`,
-  // })
-  //   .then(({ json = {} }) => {
-  //     setDatasourceCurrentlyDeleting({
-  //       ...datasource,
-  //     });
-  //   })
-  //   .catch(
-  //     createErrorHandler(errMsg =>
-  //       t(
-  //         'An error occurred while fetching database related data: %s',
-  //         errMsg,
-  //       ),
-  //     ),
-  //   );
-
+  const openDatasourceDeleteModal = (datasource: DatasourceObject) => {
+    setDatasourceCurrentlyDeleting(datasource)
+  };
 
   const columns = useMemo(
     () => [
       {
-        accessor: 'catalog_name',
-        Header: t('Catalog Name'),
+        accessor: 'catalog_id',
+        Header: t('Catalog ID'),
       },
       {
         accessor: 'connector_type',
@@ -136,40 +131,61 @@ const DatasourceList: FunctionComponent<DatasourceListProps> = ({
         size: 'lg',
       },
       {
-        accessor: 'created_by',
-        disableSortBy: true,
-        Header: t('Created by'),
-        Cell: ({
-          row: {
-            original: { created_by: createdBy },
-          },
-        }: any) =>
-          createdBy ? `${createdBy.first_name} ${createdBy.last_name}` : '',
-        size: 'xl',
-      },
-      {
-        Cell: ({
-          row: {
-            original: { changed_on_delta_humanized: changedOn },
-          },
-        }: any) => changedOn,
-        Header: t('Last modified'),
-        accessor: 'changed_on_delta_humanized',
-        size: 'xl',
-      },
-      {
         Cell: ({ row: { original } }: any) => {
           const handleEdit = () =>
             handleDatasourceEditModal({ datasource: original, modalOpen: true });
+          const handleTest = () => {
+            fetch(DEFAULT_BE_URL + "/api/v1/connector/test_connection", {
+              method: "POST",
+              body: JSON.stringify({ catalog_id: original.catalog_id })
+            }).then((res) => res.json())
+              .then(res => {
+                notification.open({
+                  message: 'Test Connection',
+                  description: res.msg,
+                  onClick: () => {
+                    console.log('Notification Clicked!');
+                  },
+                });
+              })
+          }
           const handleDelete = () => openDatasourceDeleteModal(original);
           return (
             <Actions className="actions">
               {(
+                <Tooltip
+                  id="edit-action-tooltip"
+                  title={t('Test')}
+                  placement="bottom"
+                >
+                  <span
+                    role="button"
+                    className="action-button"
+                    onClick={handleTest}
+                  >
+                    <Icons.Refresh data-test="edit-alt" />
+                  </span>
+                </Tooltip>
+              )}
+              {(
+                <Tooltip
+                  id="edit-action-tooltip"
+                  title={t('Edit')}
+                  placement="bottom"
+                >
+                  <span
+                    role="button"
+                    className="action-button"
+                    onClick={handleEdit}
+                  >
+                    <Icons.EditAlt data-test="edit-alt" />
+                  </span>
+                </Tooltip>
+              )}
+              {(
                 <span
                   role="button"
-                  tabIndex={0}
                   className="action-button"
-                  data-test="database-delete"
                   onClick={handleDelete}
                 >
                   <Tooltip
@@ -181,23 +197,7 @@ const DatasourceList: FunctionComponent<DatasourceListProps> = ({
                   </Tooltip>
                 </span>
               )}
-              {(
-                <Tooltip
-                  id="edit-action-tooltip"
-                  title={t('Edit')}
-                  placement="bottom"
-                >
-                  <span
-                    role="button"
-                    data-test="database-edit"
-                    tabIndex={0}
-                    className="action-button"
-                    onClick={handleEdit}
-                  >
-                    <Icons.EditAlt data-test="edit-alt" />
-                  </span>
-                </Tooltip>
-              )}
+
             </Actions>
           );
         },
@@ -213,12 +213,11 @@ const DatasourceList: FunctionComponent<DatasourceListProps> = ({
     <>
       <SubMenu {...menuData} />
       <DatasourceModal
-        databaseId={currentDatasource?.id}
+        catalogId={currentDatasource?.catalog_id}
         show={datasourceModalOpen}
         onHide={handleDatasourceEditModal}
-        onDatabaseAdd={() => {
-          refreshData();
-        }}
+        connection={currentDatasource}
+        isEditMode={!!currentDatasource}
       />
       {datasourceCurrentlyDeleting && (
         <DeleteModal

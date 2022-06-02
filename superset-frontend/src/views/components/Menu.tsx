@@ -99,9 +99,8 @@ const StyledHeader = styled.header`
         justify-content: center;
         /* must be exactly the height of the Antd navbar */
         min-height: 50px;
-        padding: ${theme.gridUnit}px ${theme.gridUnit * 2}px ${
-    theme.gridUnit
-  }px ${theme.gridUnit * 4}px;
+        padding: ${theme.gridUnit}px ${theme.gridUnit * 2}px ${theme.gridUnit
+    }px ${theme.gridUnit * 4}px;
         max-width: ${theme.gridUnit * 37}px;
         img {
           height: 100%;
@@ -371,6 +370,12 @@ export default function MenuWrapper({ data, ...rest }: MenuProps) {
           icon: 'fa-database',
           label: 'Data Commons',
           url: '/datacommons',
+        });
+        children.push({
+          name: 'datasource',
+          icon: 'fa-database',
+          label: 'Data Source',
+          url: '/datasource/list/?pageIndex=0',
         });
       }
       newItem.childs = children;
